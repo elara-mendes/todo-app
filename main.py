@@ -1,10 +1,8 @@
 message = "Enter a todo:"
-text = input(message)
-text2 = input(message)
-text3 = input(message)
 
-todos = [text, text2, text3]
+todos = []
 
-print(todos)
-
-print(type(text2))
+while True:
+    todo = input(message)
+    todos.append(todo.capitalize())
+    print(todos)
