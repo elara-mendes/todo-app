@@ -14,7 +14,10 @@ while True:
             todos.append(todo.title())
             write_file()
         case "show":
-            for index, todo in enumerate(todos):
+            new_todos = [todo.strip('\n') for todo in todos] # List Comprehension
+
+            for index, todo in enumerate(new_todos):
+                # todo = todo.strip("\n")
                 print(f"{index + 1} - {todo}")
         case "edit":
             user_edit_choice = int(input("Write the number of the todo:"))
