@@ -26,7 +26,10 @@ while True:
             write_file()
         case "complete":
             user_complete_choice = int(input("Which todo do you want to complete?"))
-            todos.pop(user_complete_choice - 1)
+            index = user_complete_choice - 1
+            remove_item = todos[index].strip("\n")
+            todos.pop(index)
+            print(f"The todo {remove_item} was removed.")
             write_file()
         case "exit":
             print("Bye!")
