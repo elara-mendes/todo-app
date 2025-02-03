@@ -5,34 +5,47 @@ def write_file():
 while True:
     user_choice = input("Enter add, show, edit, complete or exit:").lower().strip()
 
+
     with open("todos.txt", "r") as file:
         todos = file.readlines()
 
-    match user_choice:
-        case "add":
-            todo = input("Enter a todo:") + "\n"
+    if "add" in user_choice:
+        todo = user_choice[4:]
+        if todo != "":
+            todo += "\n"
+        # todo = input("Enter a todo:") + "\n"
             todos.append(todo.title())
             write_file()
-        case "show":
-            new_todos = [todo.strip('\n') for todo in todos] # List Comprehension
+    elif "show" in user_choice: # Doesn't need more than this word.
+        new_todos = [todo.strip('\n') for todo in todos] # List Comprehension
 
-            for index, todo in enumerate(new_todos):
-                # todo = todo.strip("\n")
-                print(f"{index + 1} - {todo}")
-        case "edit":
-            user_edit_choice = int(input("Write the number of the todo:"))
-            user_new_word = input("Write your new todo:") + "\n"
-            new_todo = todos[user_edit_choice - 1] = user_new_word.title()
-            write_file()
-        case "complete":
-            user_complete_choice = int(input("Which todo do you want to complete?"))
-            index = user_complete_choice - 1
-            remove_item = todos[index].strip("\n")
-            todos.pop(index)
+        for index, todo in enumerate(new_todos):
+            # todo = todo.strip("\n")
+            print(f"{index + 1} - {todo}")
+    elif "edit" in user_choice:
+        todo = int(user_choice[4:])
+        # print(todo)
+        # user_edit_choice = int(input("Write the number of the todo:"))
+        user_new_word = input("Write your new todo:") + "\n"
+        todos[todo - 1] = user_new_word.title() # Python allows two attribution? Yes! but doesn't look good.
+        write_file()
+    elif "complete" in user_choice:
+        todo = int(user_choice[8:]) - 1
+        # print(todo)
+        if todo != "":
+            # user_complete_choice = int(input("Which todo do you want to complete?"))
+            # index = user_complete_choice - 1
+            remove_item = todos[todo].strip("\n")
+            todos.pop(todo)
             print(f"The todo {remove_item} was removed.")
             write_file()
-        case "exit":
-            print("Bye!")
-            break
-        case _:
-            print("Write a known command!")
+    elif "exit" in user_choice:
+        print("Bye!")
+        break
+    else:
+        print("Write a known command!")
+    # case _:
+    #     print("Write a known command!")
+
+
+# The program won't check another conditionals with elif when executing one. It's good to save memory.
