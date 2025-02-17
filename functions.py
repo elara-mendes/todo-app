@@ -1,11 +1,13 @@
-def write_file(todos_arg, filepath="todos.txt"):
+FILEPATH = "todos.txt"
+
+def write_file(todos_arg, filepath=FILEPATH):
     """
     Write the text file.
     """
     with open(filepath, "w") as text_file:
         text_file.writelines(todos_arg)
 
-def read_file(filepath="todos.txt"):
+def read_file(filepath=FILEPATH):
     """
     Read the text file and return it.
     """

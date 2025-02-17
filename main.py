@@ -1,6 +1,9 @@
 import functions
+import time
 
 while True:
+    time_now = f"Today's time! ⭐ - {time.strftime("%H:%M - %d/%m/%Y")}"
+    print(time_now)
     user_choice = input("Enter add, show, edit, complete or exit:").lower().strip()
 
     todos = functions.read_file()
@@ -11,6 +14,8 @@ while True:
             todo += "\n"
             todos.append(todo.title())
             functions.write_file(todos)
+        else:
+            print("Write something!")
     elif user_choice.startswith("show"):
         new_todos = [todo.strip('\n') for todo in todos]
 
@@ -35,6 +40,9 @@ while True:
                 functions.write_file(todos)
         except IndexError:
             print("The value is incorrect.")
+            continue
+        except ValueError:
+            print("The command is invalid.")
             continue
     elif user_choice.startswith("exit"):
         print("Bye!")
