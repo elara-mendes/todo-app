@@ -6,19 +6,30 @@ todos = functions.read_file()
 
 text = sg.Text("Type in a todo")
 todo = sg.Input(tooltip="Write a todo here.", key="todo")
-button = sg.Button('Add')
+add_button = sg.Button('Add')
 
 # Create the window
-window = sg.Window('My ToDo App', layout=[[text], [todo], [button]])
+window = sg.Window('My ToDo App',
+                   layout=[[text], [todo], [add_button]])
 
-events, values = window.read()
-todo_text = values["todo"] + "\n"
-print_text = values["todo"]
+while True:
+    events, values = window.read()
 
-# Writing file
-todos.append(todo_text)
-functions.write_file(todos)
+    match events:
+        case "Add":
+            todo_text = values["todo"] + "\n"
+            print_text = values["todo"]
 
-print(f"The {print_text} was added with success!")
+            # Writing file
+            todos.append(todo_text)
+            functions.write_file(todos)
+
+            print(f"The {print_text} was added with success!")
+
+    if events == sg.WIN_CLOSED or events == 'Exit':
+        break
+
+    print(events)
+    print(values)
 
 window.close()
